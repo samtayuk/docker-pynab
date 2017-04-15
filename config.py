@@ -1,4 +1,5 @@
 import logging
+import os
 
 stats = {
     # stats settings
@@ -291,8 +292,8 @@ postprocess = {
     # this can be newznab's if you bought plus, include your id, ie.
     # expects data in newznab sql dump format
     # 'http://www.newznab.com/getregex.php?newznabID=<id>'
-    'regex_type': 'nzedb',
-    'regex_url': 'https://raw.githubusercontent.com/nZEDb/nZEDb/0.x/resources/db/schema/data/10-release_naming_regexes.tsv',
+    'regex_type': os.environ.get('REGEX_TYPE') or 'nzedb',
+    'regex_url': os.environ.get('REGEX_URL') or 'https://raw.githubusercontent.com/nZEDb/nZEDb/0.x/resources/db/schema/data/10-release_naming_regexes.tsv',
 
     # blacklist_url: url to retrieve blacklists from
     # generally leave alone
@@ -326,28 +327,28 @@ db = {
     # 'postgresql' or 'mysql+pymysql'
     # maria, percona, etc use the latter
     'engine': 'postgresql',
-    'host': '',
+    'host': os.environ.get('DB_HOST') or 'db',
     'port': 5432,
     'unix_socket': '',
-    'user': '',
-    'pass': '',
-    'db': 'pynab',
+    'user': os.environ.get('DB_USER'),
+    'pass': os.environ.get('DB_PASSWORD'),
+    'db': os.environ.get('DB_NAME') or 'pynab',
 }
 
 # usenet server details
 news = {
     # host: your usenet server host ('news.supernews.com' or the like)
-    'host': '',
+    'host': os.environ.get('USENET_HOST'),
 
     # user: whatever your login name is
-    'user': '',
+    'user': os.environ.get('USENET_USER'),
 
     # password: your password
-    'password': '',
+    'password': os.environ.get('USENET_PASSWORD'),
 
     # port: port that your news server runs on
     # make sure there aren't any quotes around it
-    'port': 443,
+    'port': os.environ.get('USENET_PORT') or 443,
 
     # ssl: True if you want to use SSL, False if not
     'ssl': True,
@@ -404,7 +405,7 @@ prebot = {
     # nick: nick of the prebot
     # try not to use random characters as this may result in a ban
     # REMEMBER TO SET THIS
-    'nick': '',
+    'nick': os.environ.get('PREBOT_NICK'),
 
     # channel: channel to join
     # default: #nZEDbPRE
