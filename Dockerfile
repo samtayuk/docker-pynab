@@ -14,7 +14,7 @@ RUN echo "deb http://httpredir.debian.org/debian jessie main contrib non-free" >
   rm -rf /tmp/*
 
 RUN git clone -b development-postgres https://github.com/Murodese/pynab.git /app/pynab && \
-  sed -i '1s/^/import os /' /app/pynab/config_sample.py && \
+  sed -i '1s/^/import os \n/' /app/pynab/config_sample.py && \
   pip install -r /app/pynab/requirements.txt && \
   pip install waitress && \
   cd /app/pynab/webui; npm install && \
