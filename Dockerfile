@@ -14,6 +14,7 @@ RUN echo "deb http://httpredir.debian.org/debian jessie main contrib non-free" >
   rm -rf /tmp/*
 
 RUN git clone -b development-postgres https://github.com/Murodese/pynab.git /app/pynab && \
+  sed -i '1s/^/import os /' /app/pynab/config_sample.py && \
   pip install -r /app/pynab/requirements.txt && \
   pip install waitress && \
   cd /app/pynab/webui; npm install && \
@@ -25,4 +26,4 @@ add config.py /app/pynab/
 
 WORKDIR /app/pynab
 
-CMD waitress-serve --port=8000 api
+CMD waitress-serve --port=8000 api:app
