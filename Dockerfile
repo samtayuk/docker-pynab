@@ -13,7 +13,7 @@ RUN echo "deb http://httpredir.debian.org/debian jessie main contrib non-free" >
   rm -rf /var/lib/apt/lists/* && \
   rm -rf /tmp/*
 
-RUN git clone -b development-postgres https://github.com/Murodese/pynab.git /app/pynab && \
+RUN git clone -b development-postgres https://github.com/samtayuk/pynab.git /app/pynab && \
   sed -i '$ d' /app/pynab/pynab/__init__.py && \
   pip install -r /app/pynab/requirements.txt && \
   pip install waitress && \
